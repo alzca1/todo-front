@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Input } from "antd";
+import { Col, Input } from "antd";
 import { CheckCircleOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import { Todo } from "../../domain/Todo";
 
 interface TodoItemProps {
   todo: Todo;
+  handleUpdateTodo: (arg: Todo) => void;
 }
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, handleUpdateTodo }) => {
   const [todoItemInfo, setTodoItemInfo] = useState({
     isBeingEdited: false,
     todoDetails: todo,
   });
-  const { id, title, dateCreated, dateCompleted, completed } = todoItemInfo.todoDetails;
+
   const { isBeingEdited } = todoItemInfo;
+
+  const { id, title, dateCreated, dateCompleted, completed } = todoItemInfo.todoDetails;
+
+  useEffect(() => {
+    const { todoDetails } = todoItemInfo;
+    handleUpdateTodo(todoDetails);
+  }, [todoItemInfo]);
 
   const toggleCompleted = () => {
     setTodoItemInfo((prevState) => ({
@@ -39,7 +47,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       todoDetails: {
         ...prevState.todoDetails,
         title: newTitle,
-        completed: false,
       },
     }));
   };
