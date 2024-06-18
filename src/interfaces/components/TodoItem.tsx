@@ -8,12 +8,14 @@ interface TodoItemProps {
   handleUpdateTodo: (arg: Todo) => void;
   handleTodoEditing: (arg: number) => void;
   todoBeingEdited: number | undefined;
+  updateTodoTitle: (arg1: number, arg2: string) => void;
 }
 const TodoItem: React.FC<TodoItemProps> = ({
   todo,
   handleUpdateTodo,
   handleTodoEditing,
   todoBeingEdited,
+  updateTodoTitle,
 }) => {
   const [todoDetails, setTodoDetails] = useState({
     ...todo,
@@ -39,6 +41,10 @@ const TodoItem: React.FC<TodoItemProps> = ({
   const toggleEdit = () => {
     if (!isBeingEdited) {
       handleTodoEditing(id);
+    }
+
+    if (isBeingEdited && title !== todo.title) {
+      updateTodoTitle(id, title);
     }
     setIsBeingEdited((prevState) => !prevState);
   };

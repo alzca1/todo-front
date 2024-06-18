@@ -9,7 +9,7 @@ const sortTodos = (todos: Todo[]): Todo[] => {
 };
 
 const TodoList: React.FC = () => {
-  const { todos, loading, error, addTodo, setTodos, setError } = useTodos();
+  const { todos, loading, error, addTodo, setTodos, setError, updateTodoTitle } = useTodos();
 
   const [todosList, setTodosList] = useState<Todo[]>(todos);
   const [todoBeingEdited, setTodoBeingEdited] = useState<number | undefined>();
@@ -67,6 +67,7 @@ const TodoList: React.FC = () => {
               handleUpdateTodo={handleUpdateTodo}
               handleTodoEditing={handleTodoEditing}
               todoBeingEdited={todoBeingEdited}
+              updateTodoTitle={updateTodoTitle}
             />
           );
         })

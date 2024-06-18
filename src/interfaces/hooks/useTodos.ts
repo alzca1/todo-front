@@ -38,13 +38,17 @@ export const useTodos = () => {
   };
 
   const updateTodoTitle = async (id: number, title: string) => {
+    let newTodos: Todo[];
     try {
       const updatedTodo = await updateTodo(id, title);
-      setTodos([...todos, updatedTodo]);
+      if (updatedTodo.id) {
+        newTodos = todos.map((todo) => (todo.id == id ? updatedTodo : todo));
+        setTodos(newTodos);
+      }
     } catch (error: any) {
       setError({ hasError: true, message: error.message });
     }
   };
 
-  return { todos, loading, error, setError, addTodo, setTodos };
+  return { todos, loading, error, setError, addTodo, setTodos, updateTodoTitle };
 };
