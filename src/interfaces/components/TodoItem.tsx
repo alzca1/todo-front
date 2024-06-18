@@ -6,47 +6,48 @@ import { Todo } from "../../domain/Todo";
 interface TodoItemProps {
   todo: Todo;
   handleUpdateTodo: (arg: Todo) => void;
+  handleTodoEditing: (arg: number) => void;
+  todoBeingEdited: number | undefined;
 }
-const TodoItem: React.FC<TodoItemProps> = ({ todo, handleUpdateTodo }) => {
-  const [todoItemInfo, setTodoItemInfo] = useState({
-    isBeingEdited: false,
-    todoDetails: todo,
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  handleUpdateTodo,
+  handleTodoEditing,
+  todoBeingEdited,
+}) => {
+  const [todoDetails, setTodoDetails] = useState({
+    ...todo,
   });
 
-  const { isBeingEdited } = todoItemInfo;
+  const { id, title, completed } = todoDetails;
 
-  const { id, title, dateCreated, dateCompleted, completed } = todoItemInfo.todoDetails;
-
-  useEffect(() => {
-    const { todoDetails } = todoItemInfo;
-    handleUpdateTodo(todoDetails);
-  }, [todoItemInfo]);
+  const [isBeingEdited, setIsBeingEdited] = useState(false);
 
   const toggleCompleted = () => {
-    setTodoItemInfo((prevState) => ({
+    setTodoDetails((prevState) => ({
       ...prevState,
-      todoDetails: {
-        ...prevState.todoDetails,
-        completed: !prevState.todoDetails.completed,
-      },
+      completed: true,
     }));
   };
 
+  useEffect(() => {
+    if (todoBeingEdited !== id) {
+      setIsBeingEdited(false);
+    }
+  });
+
   const toggleEdit = () => {
-    setTodoItemInfo((prevState) => ({
-      ...prevState,
-      isBeingEdited: !prevState.isBeingEdited,
-    }));
+    if (!isBeingEdited) {
+      handleTodoEditing(id);
+    }
+    setIsBeingEdited((prevState) => !prevState);
   };
 
   const handleChangeTitle = (e: any) => {
     e.preventDefault();
-    setTodoItemInfo((prevState) => ({
+    setTodoDetails((prevState) => ({
       ...prevState,
-      todoDetails: {
-        ...prevState.todoDetails,
-        title: e.target.value.trim() != "" ? e.target.value : "Add a todo here...",
-      },
+      title: e.target.value.trim() != "" ? e.target.value : "Add a todo here...",
     }));
   };
   return (
