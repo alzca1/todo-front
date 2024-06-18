@@ -27,7 +27,11 @@
     border: none !important;
     background-color: inherit;
     font-size: inherit;
-    
+    color: #5c8bee;
+  }
+
+  input::placeholder {
+    color: grey;
   }
   .dashed {
     text-decoration: line-through;
