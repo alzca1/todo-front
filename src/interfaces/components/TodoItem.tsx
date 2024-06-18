@@ -41,12 +41,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, handleUpdateTodo }) => {
 
   const handleChangeTitle = (e: any) => {
     e.preventDefault();
-    const newTitle = e.target.value;
     setTodoItemInfo((prevState) => ({
       ...prevState,
       todoDetails: {
         ...prevState.todoDetails,
-        title: newTitle,
+        title: e.target.value.trim() != "" ? e.target.value : "Add a todo here...",
       },
     }));
   };
