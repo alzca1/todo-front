@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 import { Todo } from "../../domain/Todo";
 import { useTodos } from "../hooks/useTodos";
-import { Skeleton } from "antd";
+import { Modal, Skeleton } from "antd";
 
 const sortTodos = (todos: Todo[]): Todo[] => {
   return todos.sort((a, b) => Number(a.completed) - Number(b.completed));
 };
 
 const TodoList: React.FC = () => {
-  const { todos, loading, error, addTodo, setTodos } = useTodos();
+  const { todos, loading, error, addTodo, setTodos, setError } = useTodos();
 
   const [todosList, setTodosList] = useState<Todo[]>(todos);
   const [todoBeingEdited, setTodoBeingEdited] = useState<number | undefined>();
@@ -41,6 +41,13 @@ const TodoList: React.FC = () => {
     setTodoBeingEdited(idEdited);
   };
 
+  const resetModalError = () => {
+    setError({
+      hasError: false,
+      message: null,
+    });
+  };
+
   return (
     <>
       {!todos.length && loading && (
@@ -68,6 +75,10 @@ const TodoList: React.FC = () => {
       )}
 
       <button onClick={addBlankTodo}>Add todo</button>
+      <Modal open={error.hasError} onOk={resetModalError} closable destroyOnClose>
+        <p>There was an error while performing the action.</p>
+        <p> Please, try again!</p>
+      </Modal>
     </>
   );
 };
