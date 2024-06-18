@@ -9,6 +9,7 @@ interface TodoItemProps {
   handleTodoEditing: (arg: number) => void;
   todoBeingEdited: number | undefined;
   updateTodoTitle: (arg1: number, arg2: string) => void;
+  toggleTodoStatus: (arg1: number, arg2: boolean) => void;
 }
 const TodoItem: React.FC<TodoItemProps> = ({
   todo,
@@ -16,6 +17,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   handleTodoEditing,
   todoBeingEdited,
   updateTodoTitle,
+  toggleTodoStatus,
 }) => {
   const [todoDetails, setTodoDetails] = useState({
     ...todo,
@@ -26,9 +28,11 @@ const TodoItem: React.FC<TodoItemProps> = ({
   const [isBeingEdited, setIsBeingEdited] = useState(false);
 
   const toggleCompleted = () => {
+    if (isBeingEdited) return;
+    toggleTodoStatus(id, !completed);
     setTodoDetails((prevState) => ({
       ...prevState,
-      completed: true,
+      completed: !prevState.completed,
     }));
   };
 
@@ -36,7 +40,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     if (todoBeingEdited !== id) {
       setIsBeingEdited(false);
     }
-  });
+  }, [todoBeingEdited]);
 
   const toggleEdit = () => {
     if (!isBeingEdited) {
@@ -65,7 +69,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
               <CheckCircleOutlined />
             </div>
           ) : (
-            <div className="pending">
+            <div className={isBeingEdited ? "pending-dimmed" : "pending"}>
               <ExclamationCircleOutlined />
             </div>
           )}

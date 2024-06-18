@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { Todo } from "../../domain/Todo";
-import { createTodo, getAllTodos, updateTodo } from "../../infrastructure/api/TodoApi";
+import {
+  createTodo,
+  getAllTodos,
+  toggleTodoCompleted,
+  updateTodo,
+} from "../../infrastructure/api/TodoApi";
 
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -46,6 +51,19 @@ export const useTodos = () => {
         setTodos(newTodos);
       }
     } catch (error: any) {
+      setError({ hasError: true, message: error.message });
+    }
+  };
+
+  const toggleTodoStatus = async (id: number, completed: boolean): Promise<void> => {
+    let newTodos: Todo[];
+    try {
+      const toggledTodo = await toggleTodoCompleted(id, completed);
+      if (toggledTodo.id) {
+        newTodos = todos.map((todo) => (todo.id == id ? toggledTodo : todo));
+        setTodos(newTodos);
+      }
+    } catch (error) {
       setError({ hasError: true, message: error.message });
     }
   };
