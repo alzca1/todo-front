@@ -28,9 +28,9 @@ export const useTodos = () => {
     fetchTodos();
   }, []);
 
-  const addTodo = async (title: string) => {
+  const addTodo = async () => {
     try {
-      const newTodo = await createTodo(title);
+      const newTodo = await createTodo("Add your todo here...");
       setTodos([...todos, newTodo]);
     } catch (error) {
       setError({ hasError: true, message: error.message });

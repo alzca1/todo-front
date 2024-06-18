@@ -22,20 +22,6 @@ const TodoList: React.FC = () => {
     setTodosList(sortedTodos);
   };
 
-  const addBlankTodo = () => {
-    const newTodosList = JSON.parse(JSON.stringify(todos));
-
-    const blankTodo: Todo = {
-      id: Math.floor(Math.random()),
-      title: "Add your todo here...",
-      completed: false,
-      dateCreated: new Date(),
-      dateCompleted: undefined,
-    };
-
-    setTodos([blankTodo, ...newTodosList]);
-  };
-
   const handleTodoEditing = (idEdited: number) => {
     console.log(`todo ${idEdited} being edited`);
     setTodoBeingEdited(idEdited);
@@ -75,7 +61,7 @@ const TodoList: React.FC = () => {
         <h2>No todos saved so far. Add one below!</h2>
       )}
 
-      <button onClick={addBlankTodo}>Add todo</button>
+      <button onClick={addTodo}>Add todo</button>
       <Modal open={error.hasError} onOk={resetModalError} closable destroyOnClose>
         <p>There was an error while performing the action.</p>
         <p> Please, try again!</p>
