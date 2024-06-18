@@ -39,7 +39,7 @@
 
   .completed {
     margin-right: 1rem;
-    transition: 100ms all ease;
+    transition: 250ms all ease;
     svg {
       color: greenyellow;
     }
@@ -50,6 +50,14 @@
     svg {
       color: crimson;
     }
+  }
+}
+
+.pending-dimmed {
+  margin-right: 1rem;
+  transition: 100ms all ease;
+  svg {
+    color: rgba(220, 20, 60, 0.159);
   }
 }
 
