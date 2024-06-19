@@ -1,10 +1,14 @@
+import { ConfigProvider, theme } from "antd";
 import "./App.css";
 import Home from "./interfaces/pages/Home";
 
 function App() {
+  const { darkAlgorithm } = theme;
   return (
     <>
-      <Home />
+      <ConfigProvider theme={{ algorithm: darkAlgorithm }}>
+        <Home />
+      </ConfigProvider>
     </>
   );
 }
