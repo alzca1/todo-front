@@ -1,30 +1,162 @@
-# React + TypeScript + Vite
+# Todo Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple Todo application built with Vite, React, and TypeScript. The application allows users to create, update, and manage their todos.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Create new todos
+- Update existing todos
+- Toggle the completion status of todos
+- Fetch all todos from an API
+- Handle errors gracefully
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Vite**: Next Generation Frontend Tooling
+- **React**: A JavaScript library for building user interfaces
+- **TypeScript**: Typed JavaScript at Any Scale
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+Follow these instructions to get the project up and running on your local machine.
+
+### Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- Node.js (>= 18.x)
+- npm (>= 10.x)
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/alzca1/todo-front
+cd todo-front
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root of the project and add the following variable:
+
+```env
+VITE_REACT_APP_BACKEND_URL=http://localhost:3000
+```
+
+### Running the Application
+
+To start the development server, run:
+
+```bash
+npm run dev
+```
+
+This will start the application on `http://localhost:4173/`.
+
+### Building for Production
+
+To build the application for production, run:
+
+```bash
+npm run build
+```
+
+This will create a `dist` directory with the production build of your app.
+
+To run the application once it has been built, run:
+
+```bash
+npm run preview
+```
+
+### Running Tests
+
+To run the tests, use the following command:
+
+```bash
+npm test
+# or
+yarn test
+```
+
+## Project Structure
+
+```
+todo-front/
+├── LICENSE
+├── README.md
+├── index.html
+├── jest.config.ts
+├── jest.setup.ts
+├── package-lock.json
+├── package.json
+├── public                                #Static files
+│   └── vite.svg
+├── src                                   # Source files
+│   ├── App.css
+│   ├── App.tsx
+│   ├── application
+│   ├── assets
+│   │   └── react.svg
+│   ├── domain
+│   │   └── Todo.ts
+│   ├── index.css
+│   ├── infrastructure
+│   │   └── api
+│   │       ├── ApiClient.ts
+│   │       └── TodoApi.ts
+│   ├── interfaces
+│   │   ├── components
+│   │   │   ├── TodoItem.tsx
+│   │   │   └── TodoList.tsx
+│   │   ├── hooks
+│   │   │   └── useTodos.ts
+│   │   └── pages
+│   │       └── Home.tsx
+│   ├── main.tsx
+│   └── vite-env.d.ts
+├── tests                                # Test files
+│   ├── __mocks__
+│   │   ├── ApiClient.ts
+│   │   ├── TodoService.ts
+│   │   └── fileMock.ts
+│   ├── application
+│   ├── domain
+│   ├── infrastructure
+│   │   └── api
+│   │       └── TodoApi.test.ts
+│   └── interfaces
+│       ├── components
+│       ├── hooks
+│       │   └── useTodos.test.ts
+│       └── pages
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+## API
+
+The application communicates with a backend API to perform CRUD operations on the todos. The API client is defined in `src/infrastructure/api/TodoApi.ts`.
+
+### Endpoints
+
+- `GET /todos`: Fetch all todos
+- `POST /create-todo`: Create a new todo
+- `PATCH /update-todo`: Update an existing todo
+- `PATCH /toggle-completed`: Toggle the completion status of a todo
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
