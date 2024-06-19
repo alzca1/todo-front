@@ -1,27 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TodoItem from "./TodoItem";
-import { Todo } from "../../domain/Todo";
 import { useTodos } from "../hooks/useTodos";
 import { Modal, Skeleton } from "antd";
 
-const sortTodos = (todos: Todo[]): Todo[] => {
-  return todos.sort((a, b) => Number(a.completed) - Number(b.completed));
-};
-
 const TodoList: React.FC = () => {
-  const { todos, loading, error, addTodo, setTodos, setError, updateTodoTitle, toggleTodoStatus } =
+  const { todos, loading, error, addTodo, setError, updateTodoTitle, toggleTodoStatus } =
     useTodos();
 
-  const [todosList, setTodosList] = useState<Todo[]>(todos);
   const [todoBeingEdited, setTodoBeingEdited] = useState<number | undefined>();
-
-  const handleUpdateTodo = (updatedTodo: Todo): void => {
-    const updatedTodos = todosList.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo));
-
-    const sortedTodos = sortTodos(updatedTodos);
-
-    setTodosList(sortedTodos);
-  };
 
   const handleTodoEditing = (idEdited: number) => {
     console.log(`todo ${idEdited} being edited`);
@@ -51,7 +37,6 @@ const TodoList: React.FC = () => {
             <TodoItem
               todo={todo}
               key={todo.id}
-              handleUpdateTodo={handleUpdateTodo}
               handleTodoEditing={handleTodoEditing}
               todoBeingEdited={todoBeingEdited}
               updateTodoTitle={updateTodoTitle}

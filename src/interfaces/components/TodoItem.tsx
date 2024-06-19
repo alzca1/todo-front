@@ -5,7 +5,6 @@ import { Todo } from "../../domain/Todo";
 
 interface TodoItemProps {
   todo: Todo;
-  handleUpdateTodo: (arg: Todo) => void;
   handleTodoEditing: (arg: number) => void;
   todoBeingEdited: number | undefined;
   updateTodoTitle: (arg1: number, arg2: string) => void;
@@ -13,7 +12,6 @@ interface TodoItemProps {
 }
 const TodoItem: React.FC<TodoItemProps> = ({
   todo,
-  handleUpdateTodo,
   handleTodoEditing,
   todoBeingEdited,
   updateTodoTitle,
