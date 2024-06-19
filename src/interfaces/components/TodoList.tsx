@@ -64,7 +64,13 @@ const TodoList: React.FC = () => {
       )}
 
       <button onClick={addTodo}>Add todo</button>
-      <Modal open={error.hasError} onOk={resetModalError} closable destroyOnClose>
+      <Modal
+        open={error.hasError}
+        onOk={resetModalError}
+        closable
+        destroyOnClose
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
         <p>There was an error while performing the action.</p>
         <p> Please, try again!</p>
       </Modal>
